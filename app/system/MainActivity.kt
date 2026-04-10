@@ -1,6 +1,7 @@
 package com.launcher
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -23,6 +24,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        // Modern way to handle back presses and prevent exiting the launcher
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Do nothing, or later intercept to close the app drawer
+            }
+        })
+        
         setContent {
             MaterialTheme {
                 val apps by viewModel.installedApps.collectAsState()
@@ -37,10 +45,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-    
-    // Prevent the back button from exiting the launcher
-    override fun onBackPressed() {
-        // Do nothing, or close the app drawer if it's open
     }
 }

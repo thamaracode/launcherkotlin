@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -54,10 +56,19 @@ fun AppIcon(app: App, onClick: () -> Unit) {
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = app.name,
+            color = Color.White, // Ensures readability against the black background
             fontSize = 12.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center
         )
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF000000)
+@Composable
+fun AppDrawerPreview() {
+    // Previews an empty AppDrawer. 
+    // (Mocking real Android Drawables and Intents for a populated preview requires extra setup)
+    AppDrawer(apps = emptyList())
 }
